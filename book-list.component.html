@@ -1,0 +1,82 @@
+
+<body>
+<h2 style="color:#FFF;"> Books List </h2>
+<div class="list row">
+
+    <div class="col-md-8">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by book name"
+            [(ngModel)]="bookName"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="searchByBookName()"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+      <div class="dropdown">
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+          <a (click)="getBooksBySorting('costlow')">Link 1</a>
+          <a (click)="getBooksBySorting('costHigh')">Link 2</a>
+          <a (click)="getBooksBySorting('ratinglow')" >Link 3</a>
+          <a (click)="getBooksBySorting('ratingHigh')" >Link 3</a>
+        </div>
+      </div>
+     
+    
+
+<table class = "table table-hover" style="width: 100%" >
+  <button class="btn btn-outline-secondary" type="button" (click)="getPublishedBooks()">Published Books
+  </button>
+
+  <button class="btn btn-outline-secondary" type="button" (click)="getNonPublishedBooks()">Non Published Books </button>
+  </table>
+  <table class = "table table-striped" style="color:white">
+    <thead style="width: 100px;">
+        <tr>
+            <th> Book Name</th>
+            <th> Book ISBN </th>
+            <th> Book Author</th>
+            <th> Book Cost</th>
+            <th> Number Of Pages</th>
+            <th> Rating of Book </th>
+            <th> Is Published book</th>
+            <th> Actions </th>
+            
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor = "let book of books | paginate: { itemsPerPage: count, currentPage: p }" >
+            <td> {{ book.bookName }} </td>
+            <td> {{ book.bookISBN }} </td>
+            <td> {{ book.author }} </td>
+            <td> {{ book.bookCost }} </td>
+            <td> {{ book.noOfpages }} </td>
+            <td> {{ book.ratingOfBook }} </td>
+            <td> {{ book.isPublished }} </td>
+            <td>
+               <button (click) = "updateBook(book.bookISBN)" class = "btn btn-info" style="margin-left: 10px"> Update</button>
+               <button (click) = "deleteBook(book.bookISBN)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+               <button (click) = "viewBook(book.bookISBN)" class = "btn btn-secondary" style="margin-left: 20px"> View</button> 
+            </td>
+        </tr>
+        
+        <tr *ngIf="books.length !== 0">
+          <button class="m-3 btn btn-sm btn-danger" (click)="removeAllBooks()">
+                Remove All
+              </button>
+        </tr>
+    </tbody>
+</table>
+</body>
